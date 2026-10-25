@@ -18,16 +18,22 @@
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Lockscreen Swipe Up Animation */
+        .swipe-up {
+            transform: translateY(-100%);
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
     </style>
 </head>
-<body class="flex justify-center min-h-screen items-center bg-zinc-950 p-0 sm:p-4">
+<body class="flex justify-center min-h-screen items-center bg-zinc-950 p-0 sm:p-4 select-none">
 
     <!-- MOBILE PHONE FRAME -->
     <div class="w-full max-w-[410px] h-[840px] bg-black rounded-[40px] border-[8px] border-zinc-800 shadow-2xl relative overflow-hidden flex flex-col text-white">
         
         <!-- STATUS BAR -->
         <div class="bg-black text-white px-6 pt-3 pb-2 flex justify-between items-center text-xs z-50 flex-shrink-0">
-            <span class="font-semibold">12:30</span>
+            <span class="font-semibold">21:20</span>
             <div class="w-20 h-4 bg-zinc-900 rounded-full mx-auto -mt-1 flex items-center justify-center">
                 <div class="w-3 h-3 bg-zinc-800 rounded-full"></div>
             </div>
@@ -38,51 +44,64 @@
             </div>
         </div>
 
+        <!-- 🔒 SCREEN 1: LOCKSCREEN (photo1.jpg) -->
+        <div id="lockScreen" onclick="unlockPhone()" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col justify-between p-8 text-white cursor-pointer" style="background-image: url('photo1.jpg');">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 text-center pt-8">
+                <i class="fa-solid fa-lock text-sm opacity-80 mb-1"></i>
+                <h1 class="text-6xl font-light tracking-tight">09:20</h1>
+                <p class="text-sm font-medium opacity-90 mt-1">2026년 9월 22일 화요일</p>
+            </div>
+            <div class="relative z-10 text-center pb-4 animate-bounce">
+                <p class="text-xs font-medium opacity-80">위로 쓸어올려서 잠금 해제</p>
+                <div class="w-32 h-1 bg-white/80 rounded-full mx-auto mt-3"></div>
+            </div>
+        </div>
+
         <!-- APP CONTENT AREA -->
         <div class="flex-1 flex flex-col bg-black overflow-hidden relative">
             
-            <!-- 🏠 VIEW 1: HOME FEED (홈 피드 - 스크롤 5개 포스트) -->
+            <!-- 🏠 VIEW 1: HOME FEED (피드 10개) -->
             <div id="viewHome" class="flex-1 overflow-y-auto no-scrollbar pb-16">
                 <!-- IG Header -->
                 <div class="px-4 py-2 flex justify-between items-center border-b border-zinc-900 sticky top-0 bg-black z-20">
                     <span class="text-xl font-bold tracking-tight italic font-serif">Instagram</span>
                     <div class="flex space-x-5 text-xl">
-                        <i class="fa-regular fa-heart cursor-pointer"></i>
-                        <i class="fa-regular fa-paper-plane cursor-pointer" onclick="switchView('dm')"></i>
+                        <i class="fa-regular fa-heart cursor-pointer hover:text-zinc-400"></i>
+                        <i class="fa-regular fa-paper-plane cursor-pointer hover:text-zinc-400" onclick="switchView('dm')"></i>
                     </div>
                 </div>
 
-                <!-- Stories Bar -->
+                <!-- Stories Bar (주영 -> 리쿠 -> 대영) -->
                 <div class="flex space-x-4 px-4 py-3 border-b border-zinc-900 overflow-x-auto no-scrollbar">
                     <div class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
                         <div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 to-rose-500">
-                            <img src="photo1.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=jjoojj'">
+                            <img src="story1.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=joo_young0'">
                         </div>
-                        <span class="text-[11px] text-zinc-300">스토리</span>
+                        <span class="text-[11px] text-zinc-300">joo_young0</span>
                     </div>
-                    <div class="flex flex-col items-center space-y-1 flex-shrink-0">
-                        <div class="w-16 h-16 rounded-full p-[2px] bg-zinc-800">
-                            <img src="photo2.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=sion'">
+                    <div class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
+                        <div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 to-rose-500">
+                            <img src="story2.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=riku_kk'">
                         </div>
-                        <span class="text-[11px] text-zinc-400">sion._.9</span>
+                        <span class="text-[11px] text-zinc-300">riku_kk</span>
                     </div>
-                    <div class="flex flex-col items-center space-y-1 flex-shrink-0">
-                        <div class="w-16 h-16 rounded-full p-[2px] bg-zinc-800">
-                            <img src="photo3.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=joo'">
+                    <div class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
+                        <div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 to-rose-500">
+                            <img src="story3.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=daeyoung_kim'">
                         </div>
-                        <span class="text-[11px] text-zinc-400">joo_young0</span>
+                        <span class="text-[11px] text-zinc-300">daeyoung_kim</span>
                     </div>
                 </div>
 
-                <!-- Posts List (5개 포스트) -->
+                <!-- Posts List (1~10 포스트) -->
                 <div id="homePostsContainer" class="divide-y divide-zinc-900">
-                    <!-- JS로 1~5번 포스트 렌더링 -->
+                    <!-- JS로 렌더링 -->
                 </div>
             </div>
 
-            <!-- 👤 VIEW 2: MY PROFILE (여주 프로필 & 피드 12개 그리드) -->
+            <!-- 👤 VIEW 2: MY PROFILE (여주 프로필 & 피드 12개) -->
             <div id="viewProfile" class="flex-1 overflow-y-auto no-scrollbar pb-16 hidden">
-                <!-- Profile Header -->
                 <div class="px-4 py-3 flex justify-between items-center border-b border-zinc-900 sticky top-0 bg-black z-20">
                     <span class="font-bold text-sm">jjoojj <i class="fa-solid fa-lock text-[10px] ml-1"></i></span>
                     <div class="flex space-x-5 text-xl">
@@ -99,7 +118,7 @@
                         </div>
                         <div class="flex space-x-6 text-center flex-1 justify-around ml-4">
                             <div>
-                                <div class="font-bold text-base">102</div>
+                                <div class="font-bold text-base">26</div>
                                 <div class="text-xs text-zinc-400">게시물</div>
                             </div>
                             <div>
@@ -114,23 +133,19 @@
                     </div>
                     <div class="text-xs space-y-1">
                         <div class="font-bold">이여주</div>
-                        <div class="text-zinc-300">🎨 회화과 26</div>
+                        <div class="text-zinc-300">🎨 한국예고 미술과 3</div>
                         <div class="text-zinc-400">집에 보내주세요...</div>
-                    </div>
-                    <div class="flex space-x-2 mt-4">
-                        <button class="flex-1 bg-zinc-800 hover:bg-zinc-700 py-1.5 rounded-lg text-xs font-bold transition">프로필 편집</button>
-                        <button class="flex-1 bg-zinc-800 hover:bg-zinc-700 py-1.5 rounded-lg text-xs font-bold transition">보관함</button>
                     </div>
                 </div>
 
-                <!-- Feed Grid (12개 포스트 그리드) -->
+                <!-- Feed Grid (12개 포스트) -->
                 <div class="border-t border-zinc-900 grid grid-cols-3 gap-[1px] bg-zinc-900" id="profileGridContainer">
-                    <!-- JS로 feed1 ~ feed12 렌더링 -->
+                    <!-- JS로 렌더링 -->
                 </div>
             </div>
 
-            <!-- 💬 VIEW 3: DM CHAT ROOM (시온과의 디엠창) -->
-            <div id="viewDM" class="flex-1 flex flex-col bg-black hidden">
+            <!-- 💬 VIEW 3: DM CHAT ROOM -->
+            <div id="viewDM" class="flex-1 flex flex-col bg-black hidden pb-16">
                 <div class="px-4 py-3 flex items-center justify-between border-b border-zinc-900 bg-black sticky top-0 z-20">
                     <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('home')">
                         <i class="fa-solid fa-arrow-left text-lg"></i>
@@ -144,57 +159,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex space-x-5 text-lg text-zinc-300">
-                        <i class="fa-solid fa-phone"></i>
-                        <i class="fa-solid fa-video"></i>
-                    </div>
                 </div>
-
-                <!-- DM Messages Body -->
-                <div class="flex-1 p-4 space-y-3 overflow-y-auto text-xs">
-                    <div class="text-center text-[10px] text-zinc-500 my-2">인스타그램 직접 메시지</div>
-                    
-                    <!-- 시온 메시지 -->
-                    <div class="flex items-end space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0">
-                            <img src="photo2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=S'>
-                        </div>
-                        <div class="bg-zinc-800 text-zinc-100 p-2.5 rounded-2xl max-w-[70%]">
-                            과제 다 해가지고 공강임. 어디야?
-                        </div>
-                    </div>
-
-                    <!-- 여주 답변 -->
-                    <div class="flex items-end justify-end space-x-2">
-                        <div class="bg-sky-600 text-white p-2.5 rounded-2xl max-w-[70%]">
-                            실기실이지 당연히... 오지 마 사람 눈많아 ㅡㅡ
-                        </div>
-                    </div>
-
-                    <!-- 시온 메시지 -->
-                    <div class="flex items-end space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0">
-                            <img src="photo2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=S'>
-                        </div>
-                        <div class="bg-zinc-800 text-zinc-100 p-2.5 rounded-2xl max-w-[70%]">
-                            후문 앞에 초코라떼 사서 대기 중. 10분 내로 나와.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DM Input -->
-                <div class="p-3 border-t border-zinc-900 bg-black flex items-center space-x-2">
-                    <input type="text" placeholder="메시지 보내기..." class="flex-1 bg-zinc-900 text-xs px-4 py-2.5 rounded-full border border-zinc-800 focus:outline-none text-white">
-                    <span class="text-sky-500 font-bold text-xs px-2 cursor-pointer">전송</span>
+                <div class="flex-1 p-4 text-xs text-zinc-400 text-center flex items-center justify-center">
+                    디엠 내용은 피드 완성 후 차차 업데이트 예정입니다!
                 </div>
             </div>
 
-            <!-- APP BOTTOM NAVIGATION -->
-            <nav class="bg-black border-t border-zinc-900 py-2.5 px-6 flex justify-between items-center text-xl text-zinc-300 flex-shrink-0 absolute bottom-0 w-full z-30">
+            <!-- APP BOTTOM NAVIGATION BAR (순서: 홈 / 릴스 / 디엠 / 검색 / 내계정) -->
+            <nav class="bg-black border-t border-zinc-900 py-3 px-6 flex justify-between items-center text-xl text-zinc-300 flex-shrink-0 absolute bottom-0 w-full z-30">
                 <i class="fa-solid fa-house cursor-pointer text-white" onclick="switchView('home')" id="navHome"></i>
-                <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-white"></i>
-                <i class="fa-regular fa-square-plus cursor-pointer hover:text-white"></i>
+                <i class="fa-regular fa-circle-play cursor-pointer hover:text-white"></i>
                 <i class="fa-regular fa-paper-plane cursor-pointer hover:text-white" onclick="switchView('dm')" id="navDM"></i>
+                <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-white"></i>
                 <div class="w-6 h-6 rounded-full overflow-hidden border border-white cursor-pointer" onclick="switchView('profile')" id="navProfile">
                     <img src="photo1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=Me'">
                 </div>
@@ -205,79 +181,239 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 포스팅 1~5 데이터 (홈 피드용)
+        // 10개 포스트 데이터 세팅
         const postsData = [
-            { id: 1, img: "feed1.jpg", caption: "미대생의 지옥을 맛보는 중... 석고상 부수고 싶다 💀", likes: "좋아요 42개", comments: "댓글 5개 모두 보기", time: "2시간 전" },
-            { id: 2, img: "feed2.jpg", caption: "학교 후문 앞 카페에서 아아 충전. 공강 최고다", likes: "좋아요 38개", comments: "댓글 2개 모두 보기", time: "5시간 전" },
-            { id: 3, img: "feed3.jpg", caption: "과제물 들고 이동하다 비참해짐 우산도 없음", likes: "좋아요 51개", comments: "댓글 8개 모두 보기", time: "어제" },
-            { id: 4, img: "feed4.jpg", caption: "주말에 그나마 숨통 트이는 중 ☕️", likes: "좋아요 64개", comments: "댓글 4개 모두 보기", time: "3일 전" },
-            { id: 5, img: "feed5.jpg", caption: "봄은 언제 오냐... 작업실 창밖", likes: "좋아요 45개", comments: "댓글 3개 모두 보기", time: "4일 전" }
+            {
+                id: 1, author: "jjoojj", avatar: "photo1.jpg", img: "feed1.jpg", caption: "미술과 실기실 감옥...", likes: 5,
+                comments: [
+                    { user: "joo_young0", text: "아직도 안 부쉈냐?ㅋㅋ 난 벌써 완성함" },
+                    { user: "daeyoung_kim", text: "실수로 부숴놓고 마치 일부러 부순 척ㅋㅋㅋㅋ", isReply: true },
+                    { user: "miyeon_09", text: "와장창!" },
+                    { user: "riku_kk", text: "일주일 밤 더 새" },
+                    { user: "sion._.9", text: "태자비 입궁 안 해?" }
+                ]
+            },
+            {
+                id: 2, author: "jjoojj", avatar: "photo1.jpg", img: "feed2.jpg", caption: "오늘 날씨 좋다 ☀️", likes: 11,
+                comments: [
+                    { user: "joo_young0", text: "황태자비마마가 대놓고 데이트 해도 되는거임?" },
+                    { user: "jjoojj", text: "내 남편이랑 하는데 안 될 이유라도?😘", isReply: true },
+                    { user: "joo_young0", text: "🤮", isReply: true }
+                ]
+            },
+            {
+                id: 3, author: "jjoojj", avatar: "photo1.jpg", img: "feed3.jpg", caption: "경회루에도 잉어가 그렇게 많다던데???", likes: 7,
+                comments: [
+                    { user: "joo_young0", text: "저는 잉어보다 사람이 더 관심 있습니다😙" },
+                    { user: "jjoojj", text: "저리 가세요!!", isReply: true },
+                    { user: "sion._.9", text: "산책 갈까?" },
+                    { user: "jjoojj", text: "응!!!!!", isReply: true },
+                    { user: "joo_young0", text: "저도 껴주시면 안 될까요? 공내관님 포지션 완전 가능^^", isReply: true },
+                    { user: "daeyoung_kim", text: "ㅋㅋㅋㅋ미쳤나 진짜", isReply: true },
+                    { user: "jjoojj", text: "미안한데 산책갈때는 우리 둘만 가거든!!", isReply: true },
+                    { user: "joo_young0", text: "내 인생 언제 돌려줄 수 있어?", isReply: true },
+                    { user: "jjoojj", text: "ㅋㅋㅋㅋㅋㅋㅋㅋ", isReply: true }
+                ]
+            },
+            {
+                id: 4, author: "jjoojj", avatar: "photo1.jpg", img: "feed4.jpg", caption: "주말 산책 💐", likes: 12,
+                comments: [
+                    { user: "sion._.9", text: "좋았어?" },
+                    { user: "sion._.9", text: "다음에 또 가자" },
+                    { user: "jjoojj", text: "조아!!!", isReply: true }
+                ]
+            },
+            {
+                id: 5, author: "jjoojj", avatar: "photo1.jpg", img: "feed5.jpg", caption: "신채경 코어✌️", likes: 9,
+                comments: [
+                    { user: "joo_young0", text: "똥머리 했겠지?" },
+                    { user: "daeyoung_kim", text: "ㅋㅋㅋㅋ설마 따라함?" },
+                    { user: "jjoojj", text: "앙~ㅋㅋ", isReply: true }
+                ]
+            },
+            {
+                id: 6, author: "joo_young0", avatar: "story1.jpg", img: "post6.jpg", caption: "집에 가고 싶억", likes: 34,
+                comments: [
+                    { user: "miyeon_09", text: "22" },
+                    { user: "daeyoung_kim", text: "33" },
+                    { user: "riku_kk", text: "집 가 그러면" },
+                    { user: "jjoojj", text: "먼저 갑니당...." }
+                ]
+            },
+            {
+                id: 7, author: "daeyoung_kim", avatar: "story3.jpg", img: "post7.jpg", caption: "여기 죽인다", likes: 12,
+                comments: [
+                    { user: "jjoojj", text: "어딘데??" },
+                    { user: "joo_young0", text: "여기 별로임 김대영은 맨날 다 맛있대" },
+                    { user: "riku_kk", text: "미식가 아니야 쟤" },
+                    { user: "daeyoung_kim", text: "다들 맛있다고 먹어놓고ㅋㅋㅋ 또 나만 막입 만드네ㅋㅋㅋㅠㅠ" }
+                ]
+            },
+            {
+                id: 8, author: "jjoojj", avatar: "photo1.jpg", img: "post8.jpg", caption: "증거사진이야. 제출은 공내관 아저씨한테.", likes: 5,
+                comments: [
+                    { user: "sion._.9", text: "협박이야?" },
+                    { user: "jjoojj", text: "아직", isReply: true },
+                    { user: "jjoojj", text: "나중에 써먹을거야", isReply: true },
+                    { user: "sion._.9", text: "ㅋㅋ귀엽네", isReply: true }
+                ]
+            },
+            {
+                id: 9, author: "riku_kk", avatar: "story2.jpg", img: "post9.jpg", caption: "후쿠이", likes: 11,
+                comments: [
+                    { user: "joo_young0", text: "자신감이 그게 다야?" },
+                    { user: "daeyoung_kim", text: "시원하게 깠는데 왜ㅋㅋㅋ" },
+                    { user: "joo_young0", text: "부족하다 부족해" },
+                    { user: "jjoojj", text: "왜저래 진짜ㅋㅋㅋㅋ", isReply: true },
+                    { user: "riku_kk", text: "나가줘 다들" }
+                ]
+            },
+            {
+                id: 10, author: "sion._.9", avatar: "photo2.jpg", img: "post10.jpg", caption: "이제 저도 공범입니다. 푸히히히✌️✌️✌️", likes: 1,
+                comments: [
+                    { user: "jjoojj", text: "우와 태자 전하도 인스타그램을 하시는구나. 반가워요!! 앞으로 익명의 공간에서도 잘 지내보아요^^" },
+                    { user: "sion._.9", text: "뭐야 이게", isReply: true },
+                    { user: "jjoojj", text: "공범 만들기ㅎㅎ", isReply: true },
+                    { user: "jjoojj", text: "이거 지우면 안 된다 약속했어 분명히!" },
+                    { user: "sion._.9", text: "나랑 한 약속부터 지켜", isReply: true },
+                    { user: "jjoojj", text: "나는 그런 약속한 적 없거든?", isReply: true },
+                    { user: "sion._.9", text: "그럼 나도 없는거야 당장 계정 삭제해", isReply: true },
+                    { user: "jjoojj", text: "그런 법이 어딨어! 맨날 자기 좋을 대로만 약속하고 내가 부탁하는 건 하나도 안 들어주고 너 진짜 미워", isReply: true },
+                    { user: "sion._.9", text: "애도 아니고 정말", isReply: true },
+                    { user: "jjoojj", text: "미워미워태자전하미워", isReply: true }
+                ]
+            }
         ];
 
-        // 뷰 전환 함수
+        let userLikesState = {};
+
+        function unlockPhone() {
+            const lock = document.getElementById('lockScreen');
+            lock.classList.add('swipe-up');
+            setTimeout(() => { lock.style.display = 'none'; }, 450);
+        }
+
         function switchView(viewName) {
             document.getElementById('viewHome').classList.add('hidden');
             document.getElementById('viewProfile').classList.add('hidden');
             document.getElementById('viewDM').classList.add('hidden');
 
-            if (viewName === 'home') {
-                document.getElementById('viewHome').classList.remove('hidden');
-            } else if (viewName === 'profile') {
-                document.getElementById('viewProfile').classList.remove('hidden');
-            } else if (viewName === 'dm') {
-                document.getElementById('viewDM').classList.remove('hidden');
+            if (viewName === 'home') document.getElementById('viewHome').classList.remove('hidden');
+            else if (viewName === 'profile') document.getElementById('viewProfile').classList.remove('hidden');
+            else if (viewName === 'dm') document.getElementById('viewDM').classList.remove('hidden');
+        }
+
+        // 하트 좋아요 클릭 (독자 참여)
+        function toggleLike(postId) {
+            const post = postsData.find(p => p.id === postId);
+            if (!post) return;
+
+            const icon = document.getElementById(`like-icon-${postId}`);
+            const countEl = document.getElementById(`like-count-${postId}`);
+
+            if (!userLikesState[postId]) {
+                userLikesState[postId] = true;
+                icon.className = "fa-solid fa-heart text-rose-500 cursor-pointer";
+                post.likes += 1;
+            } else {
+                userLikesState[postId] = false;
+                icon.className = "fa-regular fa-heart hover:text-rose-500 cursor-pointer";
+                post.likes -= 1;
+            }
+            countEl.innerText = `좋아요 ${post.likes}개`;
+        }
+
+        // 댓글 더보기 토글
+        function toggleComments(postId) {
+            const el = document.getElementById(`comments-list-${postId}`);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
             }
         }
 
-        // 홈 피드 5개 렌더링
+        // 독자(lspy) 댓글 작성
+        function addReaderComment(postId) {
+            const input = document.getElementById(`comment-input-${postId}`);
+            const val = input.value.trim();
+            if (!val) return;
+
+            const post = postsData.find(p => p.id === postId);
+            post.comments.push({ user: "lspy", text: val });
+
+            input.value = '';
+            renderHomePosts();
+
+            // 펼쳐진 상태 유지
+            const el = document.getElementById(`comments-list-${postId}`);
+            if (el) el.classList.remove('hidden');
+        }
+
+        // 홈 피드 렌더링
         function renderHomePosts() {
             const container = document.getElementById('homePostsContainer');
             container.innerHTML = postsData.map(post => `
                 <article class="pb-3">
-                    <!-- Post Header -->
                     <div class="flex items-center justify-between px-3 py-2.5">
                         <div class="flex items-center space-x-2">
                             <div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden">
-                                <img src="photo1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=Me'">
+                                <img src="${post.avatar}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=${post.author}'">
                             </div>
-                            <span class="font-bold text-xs">jjoojj</span>
+                            <span class="font-bold text-xs">${post.author}</span>
                         </div>
                         <i class="fa-solid fa-ellipsis text-zinc-400 text-xs"></i>
                     </div>
-                    <!-- Post Image (정사각형) -->
+
                     <div class="w-full aspect-square bg-zinc-900 overflow-hidden flex items-center justify-center">
-                        <img src="${post.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/18181b/ffffff?text=feed${post.id}.jpg'">
+                        <img src="${post.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/18181b/ffffff?text=${post.img}'">
                     </div>
-                    <!-- Post Actions -->
+
                     <div class="px-3 pt-2.5 pb-1 flex justify-between items-center text-lg">
                         <div class="flex space-x-4">
-                            <i class="fa-regular fa-heart hover:text-rose-500 cursor-pointer"></i>
-                            <i class="fa-regular fa-comment hover:text-zinc-400 cursor-pointer"></i>
+                            <i id="like-icon-${post.id}" onclick="toggleLike(${post.id})" class="${userLikesState[post.id] ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart hover:text-rose-500'} cursor-pointer"></i>
+                            <i onclick="toggleComments(${post.id})" class="fa-regular fa-comment hover:text-zinc-400 cursor-pointer"></i>
                             <i class="fa-regular fa-paper-plane hover:text-zinc-400 cursor-pointer"></i>
                         </div>
                         <i class="fa-regular fa-bookmark hover:text-zinc-400 cursor-pointer"></i>
                     </div>
-                    <!-- Post Details -->
+
                     <div class="px-3 text-xs space-y-1">
-                        <div class="font-bold">${post.likes}</div>
-                        <div><span class="font-bold mr-1.5">jjoojj</span><span class="text-zinc-200">${post.caption}</span></div>
-                        <div class="text-zinc-500 cursor-pointer pt-0.5">${post.comments}</div>
-                        <div class="text-[10px] text-zinc-500 uppercase">${post.time}</div>
+                        <div class="font-bold text-zinc-200" id="like-count-${post.id}">좋아요 ${post.likes}개</div>
+                        <div><span class="font-bold mr-1.5">${post.author}</span><span class="text-zinc-200">${post.caption}</span></div>
+                        
+                        <div onclick="toggleComments(${post.id})" class="text-zinc-500 cursor-pointer pt-0.5">
+                            댓글 ${post.comments.length}개 모두 보기
+                        </div>
+
+                        <!-- 댓글 펼치기 영역 -->
+                        <div id="comments-list-${post.id}" class="hidden space-y-1 pt-1 border-t border-zinc-900 mt-2">
+                            ${post.comments.map(c => `
+                                <div class="${c.isReply ? 'pl-3 border-l border-zinc-800' : ''} text-[11px]">
+                                    <span class="font-bold ${c.user === 'lspy' ? 'text-sky-400' : 'text-zinc-300'} mr-1.5">${c.user}</span>
+                                    <span class="text-zinc-300">${c.text}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- 독자 댓글 입력창 -->
+                        <div class="flex items-center space-x-2 pt-2">
+                            <input type="text" id="comment-input-${post.id}" placeholder="lspy(으)로 댓글 달기..." class="flex-1 bg-transparent text-[11px] text-white focus:outline-none placeholder-zinc-600">
+                            <button onclick="addReaderComment(${post.id})" class="text-sky-500 font-bold text-[11px]">게시</button>
+                        </div>
                     </div>
                 </article>
             `).join('');
         }
 
-        // 프로필 그리드 12개 렌더링 (feed1 ~ feed12)
+        // 프로필 그리드 12개 렌더링
         function renderProfileGrid() {
             const container = document.getElementById('profileGridContainer');
             let html = '';
             for (let i = 1; i <= 12; i++) {
-                // 1~5번은 피드 사진 연동, 6~12는 더미
-                let imgName = i <= 5 ? `feed${i}.jpg` : `feed${i}.jpg`;
                 html += `
-                    <div class="aspect-square bg-zinc-900 overflow-hidden flex items-center justify-center cursor-pointer group relative">
-                        <img src="${imgName}" class="w-full h-full object-cover group-hover:scale-105 transition" onerror="this.src='https://placehold.co/300x300/18181b/ffffff?text=feed${i}'">
+                    <div class="aspect-square bg-zinc-900 overflow-hidden flex items-center justify-center cursor-pointer group">
+                        <img src="feed${i}.jpg" class="w-full h-full object-cover group-hover:scale-105 transition" onerror="this.src='https://placehold.co/300x300/18181b/ffffff?text=feed${i}'">
                     </div>
                 `;
             }
