@@ -60,7 +60,7 @@
                     <div class="flex-1 min-w-0 text-xs">
                         <div class="flex justify-between items-center mb-0.5">
                             <span class="font-bold text-zinc-200">오시온 (@wangsion)</span>
-                            <span class="text-[10px] text-zinc-400">오늘 아침</span>
+                            <span class="text-[10px] text-zinc-400">2분 전</span>
                         </div>
                         <p class="text-zinc-300 truncate font-medium">비궁</p>
                     </div>
@@ -133,7 +133,7 @@
                 <div id="homePostsContainer" class="divide-y divide-zinc-900"></div>
             </div>
 
-            <!-- 👤 VIEW 2: MY PROFILE -->
+            <!-- 👤 VIEW 2: MY PROFILE (이름 위치 정상화 반영 완료) -->
             <div id="viewProfile" class="flex-1 overflow-y-auto no-scrollbar pb-20 hidden">
                 <div class="px-4 py-3 flex justify-between items-center border-b border-zinc-900 sticky top-0 bg-black z-20">
                     <span class="font-bold text-sm">jjoojj <i class="fa-solid fa-lock text-[10px] ml-1"></i></span>
@@ -153,16 +153,17 @@
                             <div><div class="font-bold text-base">13</div><div class="text-xs text-zinc-400">팔로잉</div></div>
                         </div>
                     </div>
-                    <div class="text-xs space-y-1">
-                        <div class="font-bold">이여주</div>
-                        <div class="text-zinc-300">🎨 한국예고 미술과 3</div>
-                        <div class="text-zinc-400">집에 보내주세요...</div>
+                    <!-- 💡 이름('이여주') 위치를 게시물/팔로워 통계 밑, 바이오 최상단으로 바르게 배치 -->
+                    <div class="text-xs space-y-0.5">
+                        <div class="font-bold text-sm text-white">이여주</div>
+                        <div class="text-zinc-300">🎨취미는 그림</div>
+                        <div class="text-zinc-400">특기는 놀기</div>
                     </div>
                 </div>
                 <div class="border-t border-zinc-900 grid grid-cols-3 gap-[1px] bg-zinc-900" id="profileGridContainer"></div>
             </div>
 
-            <!-- 💬 VIEW 3: DM CHAT ROOM (스크롤 가능 구조 완벽 적용) -->
+            <!-- 💬 VIEW 3: DM CHAT ROOM -->
             <div id="viewDM" class="flex-1 flex flex-col bg-black hidden pb-20 overflow-hidden">
                 <div class="px-4 py-3 flex items-center justify-between border-b border-zinc-900 bg-black sticky top-0 z-20 flex-shrink-0">
                     <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('home')">
@@ -179,11 +180,11 @@
                     </div>
                 </div>
 
-                <!-- DM Messages Body (스크롤 영역) -->
+                <!-- DM Messages Body -->
                 <div class="flex-1 p-4 space-y-4 overflow-y-auto text-xs no-scrollbar">
                     
-                    <!-- 디엠 1) [9월 15일] -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">9월 15일</div>
+                    <!-- 디엠 1) [2026년 9월 15일] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">2026년 9월 15일</div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">태자 전하!</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">이게 바로 디엠이라는 거야</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">알겠어?</div></div>
@@ -192,16 +193,17 @@
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">아마도? ㅎㅎ</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">사생활 퍼질 걱정부터 해야지</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">몰래 인스타 계정 파고 있던 것부터 마음에 안 들어 적당히 해</div></div>
-                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">태자 전하 걱정마~</div></div>
-                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">그래서 최대한 일상적인 사진만 올리고 착한 말만 쓰잖아</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">태자 전하 걱정마</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">그래서 최대한 일상적인 사진만 올리고 착한 말만 쓰잖아~</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">비궁 사진이 너무 많은 건 생각 안 해?</div></div>
-                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">왜ㅋㅋ 너만 보고 싶어?</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">왜ㅋㅋ</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">너만 보고 싶어?</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">응</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">나만 봐야지</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">웃겨 진짜</div></div>
 
-                    <!-- 디엠 2) [며칠 뒤 점심시간] -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">며칠 뒤 점심시간</div>
+                    <!-- 디엠 2) [2026년 9월 17일] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">2026년 9월 17일</div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">전하...</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">오늘 선배들이 밥 사준다고 하는데 따라가면 안 돼?</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">어디서</div></div>
@@ -215,8 +217,8 @@
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">헐</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">완전 어이없어</div></div>
 
-                    <!-- 디엠 3) [저녁 시간] -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">저녁 시간</div>
+                    <!-- 디엠 3) [2026년 9월 19일] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">2026년 9월 19일</div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">비궁</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">건너 와</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">귀찮아....</div></div>
@@ -225,8 +227,8 @@
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">대신 걸스토크 좀 하다가 다시 전하 방으로 가야 돼...!!</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">ㅋㅋ</div></div>
 
-                    <!-- 디엠 4) [그제 늦은 밤] -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">그제 늦은 밤</div>
+                    <!-- 디엠 4) [2026년 9월 20일] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">2026년 9월 20일</div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">[릴스 영상 공유됨]</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">수라간에 이거 만들어 달라고 하면 혼날까?</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">글쎄</div></div>
@@ -246,8 +248,8 @@
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">ㅋㅋ</div></div>
                     <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">부끄러워 하기는</div></div>
 
-                    <!-- 디엠 5) [2시간 전] -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">2시간 전</div>
+                    <!-- 디엠 5) [2분 전] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">2분 전</div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">비궁</div></div>
                     <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">입궁 안 해?</div></div>
 
@@ -316,12 +318,12 @@
                 id: 3, author: "jjoojj", avatar: "dm1.jpg", img: "feed3.jpg", caption: "경회루에도 잉어가 그렇게 많다던데...", likes: 7, time: "어제",
                 comments: [
                     { user: "joo_young0", text: "저는 잉어보다 사람이 더 관심 있습니다😙" },
-                    { user: "jjoojj", text: "저리 가세요!!", isReply: true },
+                    { user: "jjoojj", text: "포기해ㅋㅋ", isReply: true },
                     { user: "wangsion", text: "산책 갈까?" },
                     { user: "jjoojj", text: "응!!!!!", isReply: true },
                     { user: "joo_young0", text: "저도 껴주시면 안 될까요? 공내관님 포지션 완전 가능^^", isReply: true },
                     { user: "daeyoung_kim", text: "ㅋㅋㅋㅋ미쳤나 진짜", isReply: true },
-                    { user: "jjoojj", text: "미안한데 산책갈때는 우리 둘만 가거든!!", isReply: true },
+                    { user: "jjoojj", text: "미안하지만 어렵겠어! 산책갈때는 우리 둘만 가거든!!", isReply: true },
                     { user: "joo_young0", text: "내 인생 언제 돌려줄 수 있어?", isReply: true },
                     { user: "jjoojj", text: "ㅋㅋㅋㅋㅋㅋㅋㅋ", isReply: true }
                 ]
@@ -339,7 +341,7 @@
                 comments: [
                     { user: "joo_young0", text: "똥머리 했겠지?" },
                     { user: "daeyoung_kim", text: "ㅋㅋㅋㅋ설마 따라함?" },
-                    { user: "jjoojj", text: "앙~ㅋㅋ", isReply: true }
+                    { user: "jjoojj", text: "당근이지~", isReply: true }
                 ]
             },
             {
