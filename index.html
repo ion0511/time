@@ -39,15 +39,33 @@
             </div>
         </div>
 
-        <!-- 🔒 SCREEN 1: LOCKSCREEN -->
-        <div id="lockScreen" onclick="unlockPhone()" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col justify-between p-8 text-white cursor-pointer" style="background-image: url('photo1.jpg');">
+        <!-- 🔒 SCREEN 1: LOCKSCREEN WITH NOTIFICATION BANNER -->
+        <div id="lockScreen" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col justify-between p-6 text-white cursor-pointer" style="background-image: url('photo1.jpg');">
             <div class="absolute inset-0 bg-black/40"></div>
-            <div class="relative z-10 text-center pt-8">
+            
+            <!-- Lockscreen Clock & Date -->
+            <div class="relative z-10 text-center pt-6" onclick="unlockPhone()">
                 <i class="fa-solid fa-lock text-sm opacity-80 mb-1"></i>
                 <h1 class="text-6xl font-light tracking-tight">09:20</h1>
                 <p class="text-sm font-medium opacity-90 mt-1">2026년 9월 22일 화요일</p>
             </div>
-            <div class="relative z-10 text-center pb-4 animate-bounce">
+
+            <!-- 🔥 Lockscreen DM Notification Banner (클릭해도 잠금해제 되도록 연동) -->
+            <div class="relative z-10 bg-zinc-900/85 backdrop-blur-md border border-white/10 rounded-2xl p-3.5 shadow-2xl flex items-start space-x-3 transition active:scale-95" onclick="unlockPhone()">
+                <div class="w-9 h-9 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0 mt-0.5">
+                    <img src="dm5.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=Sion'">
+                </div>
+                <div class="flex-1 min-w-0 text-xs">
+                    <div class="flex justify-between items-center mb-0.5">
+                        <span class="font-bold text-zinc-200">오시온 (@wangsion)</span>
+                        <span class="text-[10px] text-zinc-400">2분 전</span>
+                    </div>
+                    <p class="text-zinc-300 truncate font-medium">비궁 입궁 안 해?</p>
+                </div>
+            </div>
+
+            <!-- Swipe up guide -->
+            <div class="relative z-10 text-center pb-2 animate-bounce" onclick="unlockPhone()">
                 <p class="text-xs font-medium opacity-80">위로 쓸어올려서 잠금 해제</p>
                 <div class="w-32 h-1 bg-white/80 rounded-full mx-auto mt-3"></div>
             </div>
@@ -130,7 +148,7 @@
                 <div class="border-t border-zinc-900 grid grid-cols-3 gap-[1px] bg-zinc-900" id="profileGridContainer"></div>
             </div>
 
-            <!-- 💬 VIEW 3: DM CHAT ROOM (시온 wangsion 과의 5개 대화 및 날짜 구분선) -->
+            <!-- 💬 VIEW 3: DM CHAT ROOM (시온 wangsion 과의 디엠 1~5 대화 및 날짜 구분선) -->
             <div id="viewDM" class="flex-1 flex flex-col bg-black hidden pb-16">
                 <div class="px-4 py-3 flex items-center justify-between border-b border-zinc-900 bg-black sticky top-0 z-20">
                     <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('home')">
@@ -147,57 +165,77 @@
                     </div>
                 </div>
 
-                <!-- DM Messages Body (5개 대화 세트 및 날짜 구분선) -->
+                <!-- DM Messages Body -->
                 <div class="flex-1 p-4 space-y-4 overflow-y-auto text-xs">
                     
-                    <!-- 대화 1 (9월 20일) -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">9월 20일 오전 10:14</div>
-                    <div class="flex items-end space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0">
-                            <img src="dm5.jpg" class="w-full h-full object-cover">
-                        </div>
-                        <div class="bg-zinc-800 text-zinc-100 p-2.5 rounded-2xl max-w-[70%]">
-                            주말에 경회루 산책 갈래?
-                        </div>
-                    </div>
+                    <!-- 디엠 1) [9월 15일 (일주일 전)] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">9월 15일 (일주일 전)</div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">태자 전하!</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">이게 바로 디엠이라는 거야</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">알겠어?</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">앞으로 여기서 대화 나누도록 해!!</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">친구들 다 믿을 만한 사람 맞아?</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">아마도? ㅎㅎ</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">사생활 퍼질 걱정부터 해야지</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">몰래 인스타 계정 파고 있던 것부터 마음에 안 들어 적당히 해</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">태자 전하 걱정마~</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">그래서 최대한 일상적인 사진만 올리고 착한 말만 쓰잖아</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">비궁 사진이 너무 많은 건 생각 안 해?</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">왜ㅋㅋ 너만 보고 싶어?</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">응</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">나만 봐야지</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">웃겨 진짜</div></div>
 
-                    <!-- 대화 2 (9월 21일) -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">9월 21일 오후 2시 30분</div>
-                    <div class="flex items-end justify-end space-x-2">
-                        <div class="bg-sky-600 text-white p-2.5 rounded-2xl max-w-[70%]">
-                            사람들 다 쳐다보는데 거기를 왜 가 ㅡㅡ 안 가
-                        </div>
-                    </div>
+                    <!-- 디엠 2) [며칠 뒤 점심시간] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">며칠 뒤 점심시간</div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">전하...</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">오늘 선배들이 밥 사준다고 하는데 따라가면 안 돼?</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">어디서</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">정문 온파스타. 남자 없음. 근위대 언니들 대동 예정!</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">그렇게 해</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">앗싸 ㅎㅎ</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">전하는 오늘 뭐 먹을 거야?</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">굶어야지.</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">야, 너 일부러 그러지</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">응</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">헐</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">완전 어이없어</div></div>
 
-                    <!-- 대화 3 (어제) -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">어제 오후 5시 10분</div>
-                    <div class="flex items-end space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0">
-                            <img src="dm5.jpg" class="w-full h-full object-cover">
-                        </div>
-                        <div class="bg-zinc-800 text-zinc-100 p-2.5 rounded-2xl max-w-[70%]">
-                            사람 없을 때 가기로 했잖아. 초코라떼 사서 후문 앞 대기한다.
-                        </div>
-                    </div>
+                    <!-- 디엠 3) [저녁 시간] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">저녁 시간</div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">비궁</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">건너 와</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">귀찮아....</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">내가 갈까?</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">웅</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">대신 걸스토크 좀 하다가 다시 전하 방으로 가야 돼...!!</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">ㅋㅋ</div></div>
 
-                    <!-- 대화 4 (오늘 아침) -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">오늘 오전 8시 45분</div>
-                    <div class="flex items-end justify-end space-x-2">
-                        <div class="bg-sky-600 text-white p-2.5 rounded-2xl max-w-[70%]">
-                            나 오늘 지각할 것 같아 과제 하느라 밤 샌 건 안 비밀.. 건드리지 마라
-                        </div>
-                    </div>
+                    <!-- 디엠 4) [그제 늦은 밤 - 릴스 공유] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">그제 늦은 밤</div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">[릴스 영상 공유됨]</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">수라간에 이거 만들어 달라고 하면 혼날까?</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">글쎄</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">태자 전하가 만들어 달라고 하면 안 돼?</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">사랑하는 비궁을 위해서 만들어 달라고 하면 수라간에서도 거절 못 하지 않을까?</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">ㅋㅋ</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">사랑하는 비궁은 어서 침소에 들지</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">치</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">진짜 먹고 싶은데</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">그럼 내일 학교 끝나고 주영이랑 같이 디저트 카페나 가야겠다...😮‍💨</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">나는 일정 없으니까 잔소리 금지!</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">비궁</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">수라간에 말해둘 테니까 밖에서 이상한 거 사먹지 마</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">오 진짜?!</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">사랑하는 비궁을 위해서 특별히 부탁드린다고 할거지?</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">글쎄</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">ㅋㅋ</div></div>
+                    <div class="flex items-end justify-end space-x-2"><div class="bg-sky-600 text-white p-2 rounded-2xl max-w-[70%]">부끄러워 하기는</div></div>
 
-                    <!-- 대화 5 (오늘 저녁) -->
-                    <div class="text-center text-[10px] text-zinc-500 my-2">오늘 오후 8시 15분</div>
-                    <div class="flex items-end space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0">
-                            <img src="dm5.jpg" class="w-full h-full object-cover">
-                        </div>
-                        <div class="bg-zinc-800 text-zinc-100 p-2.5 rounded-2xl max-w-[70%]">
-                            인스타에 올린 그 사진 당장 내려. 무슨 공범이야 적당히 해
-                        </div>
-                    </div>
+                    <!-- 디엠 5) [2시간 전] -->
+                    <div class="text-center text-[10px] text-zinc-500 my-2">2시간 전</div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">비궁</div></div>
+                    <div class="flex items-end space-x-2"><div class="w-7 h-7 rounded-full bg-zinc-800 overflow-hidden flex-shrink-0"><img src="dm5.jpg" class="w-full h-full object-cover"></div><div class="bg-zinc-800 text-zinc-100 p-2 rounded-2xl max-w-[70%]">입궁 안 해?</div></div>
 
                 </div>
 
@@ -208,7 +246,7 @@
                 </div>
             </div>
 
-            <!-- APP BOTTOM NAVIGATION BAR (순서: 홈 / 릴스 / 디엠 / 검색 / 내계정) -->
+            <!-- APP BOTTOM NAVIGATION BAR -->
             <nav class="bg-black border-t border-zinc-900 py-3 px-6 flex justify-between items-center text-xl text-zinc-300 flex-shrink-0 absolute bottom-0 w-full z-30">
                 <i class="fa-solid fa-house cursor-pointer text-white" onclick="switchView('home')" id="navHome"></i>
                 <i class="fa-regular fa-circle-play cursor-pointer hover:text-white"></i>
@@ -377,7 +415,7 @@
                 icon.className = "fa-regular fa-heart hover:text-rose-500 cursor-pointer";
                 post.likes -= 1;
             }
-            countEl.innerText = `좋아요 ${post.likes}개`;
+            countEl.innerText = `${post.likes}`;
         }
 
         function toggleComments(postId) {
@@ -429,7 +467,7 @@
                         <img src="${post.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/18181b/ffffff?text=${post.img}'">
                     </div>
 
-                    <!-- 요청하신 이미지 형태의 다크모드 아이콘 배치 (하트+숫자 / 댓글+숫자 / 종이비행기 ... 북마크) -->
+                    <!-- 다크모드 하단 아이콘 배치 (사진 참조) -->
                     <div class="px-3 pt-2.5 pb-1 flex justify-between items-center text-sm font-semibold text-zinc-200">
                         <div class="flex items-center space-x-4">
                             <div class="flex items-center space-x-1.5 cursor-pointer" onclick="toggleLike(${post.id})">
