@@ -18,12 +18,7 @@
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* Lockscreen Swipe Up Animation */
-        .swipe-up {
-            transform: translateY(-100%);
-            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        .swipe-up { transform: translateY(-100%); transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
 <body class="flex justify-center min-h-screen items-center bg-zinc-950 p-0 sm:p-4 select-none">
@@ -44,7 +39,7 @@
             </div>
         </div>
 
-        <!-- 🔒 SCREEN 1: LOCKSCREEN (photo1.jpg) -->
+        <!-- 🔒 SCREEN 1: LOCKSCREEN -->
         <div id="lockScreen" onclick="unlockPhone()" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col justify-between p-8 text-white cursor-pointer" style="background-image: url('photo1.jpg');">
             <div class="absolute inset-0 bg-black/40"></div>
             <div class="relative z-10 text-center pt-8">
@@ -61,7 +56,7 @@
         <!-- APP CONTENT AREA -->
         <div class="flex-1 flex flex-col bg-black overflow-hidden relative">
             
-            <!-- 🏠 VIEW 1: HOME FEED (피드 10개) -->
+            <!-- 🏠 VIEW 1: HOME FEED -->
             <div id="viewHome" class="flex-1 overflow-y-auto no-scrollbar pb-16">
                 <!-- IG Header -->
                 <div class="px-4 py-2 flex justify-between items-center border-b border-zinc-900 sticky top-0 bg-black z-20">
@@ -72,35 +67,41 @@
                     </div>
                 </div>
 
-                <!-- Stories Bar (주영 -> 리쿠 -> 대영) -->
+                <!-- Stories Bar (여주, 주영, 리쿠, 대영 순서) -->
                 <div class="flex space-x-4 px-4 py-3 border-b border-zinc-900 overflow-x-auto no-scrollbar">
-                    <div class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
+                    <div onclick="openStory('story1.jpg', 'jjoojj')" class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
                         <div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 to-rose-500">
-                            <img src="story1.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=joo_young0'">
+                            <img src="story1.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=jjoojj'">
+                        </div>
+                        <span class="text-[11px] text-zinc-300">내 스토리</span>
+                    </div>
+                    <div onclick="openStory('story2.jpg', 'joo_young0')" class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
+                        <div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 to-rose-500">
+                            <img src="story2.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=joo_young0'">
                         </div>
                         <span class="text-[11px] text-zinc-300">joo_young0</span>
                     </div>
-                    <div class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
+                    <div onclick="openStory('story3.jpg', 'riku_kk')" class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
                         <div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 to-rose-500">
-                            <img src="story2.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=riku_kk'">
+                            <img src="story3.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=riku_kk'">
                         </div>
                         <span class="text-[11px] text-zinc-300">riku_kk</span>
                     </div>
-                    <div class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
+                    <div onclick="openStory('story4.jpg', 'daeyoung_kim')" class="flex flex-col items-center space-y-1 flex-shrink-0 cursor-pointer">
                         <div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 to-rose-500">
-                            <img src="story3.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=daeyoung_kim'">
+                            <img src="story4.jpg" class="w-full h-full object-cover rounded-full bg-zinc-800" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=daeyoung_kim'">
                         </div>
                         <span class="text-[11px] text-zinc-300">daeyoung_kim</span>
                     </div>
                 </div>
 
-                <!-- Posts List (1~10 포스트) -->
+                <!-- Posts List -->
                 <div id="homePostsContainer" class="divide-y divide-zinc-900">
-                    <!-- JS로 렌더링 -->
+                    <!-- JS 렌더링 -->
                 </div>
             </div>
 
-            <!-- 👤 VIEW 2: MY PROFILE (여주 프로필 & 피드 12개) -->
+            <!-- 👤 VIEW 2: MY PROFILE -->
             <div id="viewProfile" class="flex-1 overflow-y-auto no-scrollbar pb-16 hidden">
                 <div class="px-4 py-3 flex justify-between items-center border-b border-zinc-900 sticky top-0 bg-black z-20">
                     <span class="font-bold text-sm">jjoojj <i class="fa-solid fa-lock text-[10px] ml-1"></i></span>
@@ -109,26 +110,15 @@
                         <i class="fa-solid fa-bars cursor-pointer"></i>
                     </div>
                 </div>
-
-                <!-- Profile Info -->
                 <div class="px-4 py-4">
                     <div class="flex items-center justify-between mb-3">
                         <div class="w-20 h-20 rounded-full bg-zinc-800 overflow-hidden border border-zinc-700">
                             <img src="photo1.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/150x150/18181b/ffffff?text=jjoojj'">
                         </div>
                         <div class="flex space-x-6 text-center flex-1 justify-around ml-4">
-                            <div>
-                                <div class="font-bold text-base">26</div>
-                                <div class="text-xs text-zinc-400">게시물</div>
-                            </div>
-                            <div>
-                                <div class="font-bold text-base">12</div>
-                                <div class="text-xs text-zinc-400">팔로워</div>
-                            </div>
-                            <div>
-                                <div class="font-bold text-base">13</div>
-                                <div class="text-xs text-zinc-400">팔로잉</div>
-                            </div>
+                            <div><div class="font-bold text-base">26</div><div class="text-xs text-zinc-400">게시물</div></div>
+                            <div><div class="font-bold text-base">12</div><div class="text-xs text-zinc-400">팔로워</div></div>
+                            <div><div class="font-bold text-base">13</div><div class="text-xs text-zinc-400">팔로잉</div></div>
                         </div>
                     </div>
                     <div class="text-xs space-y-1">
@@ -137,11 +127,7 @@
                         <div class="text-zinc-400">집에 보내주세요...</div>
                     </div>
                 </div>
-
-                <!-- Feed Grid (12개 포스트) -->
-                <div class="border-t border-zinc-900 grid grid-cols-3 gap-[1px] bg-zinc-900" id="profileGridContainer">
-                    <!-- JS로 렌더링 -->
-                </div>
+                <div class="border-t border-zinc-900 grid grid-cols-3 gap-[1px] bg-zinc-900" id="profileGridContainer"></div>
             </div>
 
             <!-- 💬 VIEW 3: DM CHAT ROOM -->
@@ -151,7 +137,7 @@
                         <i class="fa-solid fa-arrow-left text-lg"></i>
                         <div class="flex items-center space-x-2">
                             <div class="w-8 h-8 rounded-full bg-zinc-800 overflow-hidden">
-                                <img src="photo2.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=Sion'">
+                                <img src="dm5.jpg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/100x100/18181b/ffffff?text=wangsion'">
                             </div>
                             <div>
                                 <div class="font-bold text-xs flex items-center">오시온 <i class="fa-solid fa-circle-check text-sky-500 text-[9px] ml-1"></i></div>
@@ -179,22 +165,38 @@
         </div>
     </div>
 
+    <!-- 📸 STORY VIEWER MODAL -->
+    <div id="storyModal" class="fixed inset-0 bg-black/95 z-50 hidden flex flex-col justify-between p-4 text-white">
+        <div class="flex justify-between items-center pt-2">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-zinc-800 overflow-hidden">
+                    <img id="storyModalAvatar" src="" class="w-full h-full object-cover">
+                </div>
+                <span id="storyModalUser" class="font-bold text-xs"></span>
+            </div>
+            <i class="fa-solid fa-xmark text-xl cursor-pointer" onclick="closeStory()"></i>
+        </div>
+        <div class="flex-1 flex items-center justify-center my-4 overflow-hidden">
+            <img id="storyModalImg" src="" class="max-h-full max-w-full object-contain rounded-xl">
+        </div>
+        <div class="text-center pb-4 text-xs text-zinc-400">답장 보내기...</div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 10개 포스트 데이터 세팅
         const postsData = [
             {
-                id: 1, author: "jjoojj", avatar: "photo1.jpg", img: "feed1.jpg", caption: "미술과 실기실 감옥...", likes: 5,
+                id: 1, author: "jjoojj", avatar: "photo1.jpg", img: "feed1.jpg", caption: "미대생의 지옥을 맛보는 중... 석고상 부수고 싶다 💀", likes: 5,
                 comments: [
-                    { user: "joo_young0", text: "아직도 안 부쉈냐?ㅋㅋ 난 벌써 완성함" },
+                    { user: "joo_young0", text: "아직도 안 부쉈냐?ㅋㅋ 난 이미 부쉈다는 식으로 작업함" },
                     { user: "daeyoung_kim", text: "실수로 부숴놓고 마치 일부러 부순 척ㅋㅋㅋㅋ", isReply: true },
                     { user: "miyeon_09", text: "와장창!" },
                     { user: "riku_kk", text: "일주일 밤 더 새" },
-                    { user: "sion._.9", text: "태자비 입궁 안 해?" }
+                    { user: "wangsion", text: "태자비 입궁 안 해?" }
                 ]
             },
             {
-                id: 2, author: "jjoojj", avatar: "photo1.jpg", img: "feed2.jpg", caption: "오늘 날씨 좋다 ☀️", likes: 11,
+                id: 2, author: "jjoojj", avatar: "photo1.jpg", img: "feed2.jpg", caption: "학교 후문 앞 카페에서 아아 충전. 공강 최고다", likes: 11,
                 comments: [
                     { user: "joo_young0", text: "황태자비마마가 대놓고 데이트 해도 되는거임?" },
                     { user: "jjoojj", text: "내 남편이랑 하는데 안 될 이유라도?😘", isReply: true },
@@ -202,11 +204,11 @@
                 ]
             },
             {
-                id: 3, author: "jjoojj", avatar: "photo1.jpg", img: "feed3.jpg", caption: "경회루에도 잉어가 그렇게 많다던데???", likes: 7,
+                id: 3, author: "jjoojj", avatar: "photo1.jpg", img: "feed3.jpg", caption: "경회루에도 잉어가 그렇게 만다던데...", likes: 7,
                 comments: [
                     { user: "joo_young0", text: "저는 잉어보다 사람이 더 관심 있습니다😙" },
                     { user: "jjoojj", text: "저리 가세요!!", isReply: true },
-                    { user: "sion._.9", text: "산책 갈까?" },
+                    { user: "wangsion", text: "산책 갈까?" },
                     { user: "jjoojj", text: "응!!!!!", isReply: true },
                     { user: "joo_young0", text: "저도 껴주시면 안 될까요? 공내관님 포지션 완전 가능^^", isReply: true },
                     { user: "daeyoung_kim", text: "ㅋㅋㅋㅋ미쳤나 진짜", isReply: true },
@@ -216,10 +218,10 @@
                 ]
             },
             {
-                id: 4, author: "jjoojj", avatar: "photo1.jpg", img: "feed4.jpg", caption: "주말 산책 💐", likes: 12,
+                id: 4, author: "jjoojj", avatar: "photo1.jpg", img: "feed4.jpg", caption: "주말에 그나마 숨통 트이는 중💐", likes: 12,
                 comments: [
-                    { user: "sion._.9", text: "좋았어?" },
-                    { user: "sion._.9", text: "다음에 또 가자" },
+                    { user: "wangsion", text: "좋았어?" },
+                    { user: "wangsion", text: "다음에 또 가자" },
                     { user: "jjoojj", text: "조아!!!", isReply: true }
                 ]
             },
@@ -232,7 +234,7 @@
                 ]
             },
             {
-                id: 6, author: "joo_young0", avatar: "story1.jpg", img: "post6.jpg", caption: "집에 가고 싶억", likes: 34,
+                id: 6, author: "joo_young0", avatar: "story1.jpg", img: "post6.jpg", caption: "집에 좀 가자 인간들아", likes: 34,
                 comments: [
                     { user: "miyeon_09", text: "22" },
                     { user: "daeyoung_kim", text: "33" },
@@ -241,7 +243,7 @@
                 ]
             },
             {
-                id: 7, author: "daeyoung_kim", avatar: "story3.jpg", img: "post7.jpg", caption: "여기 죽인다", likes: 12,
+                id: 7, author: "daeyoung_kim", avatar: "story4.jpg", img: "post7.jpg", caption: "여기 죽인다", likes: 12,
                 comments: [
                     { user: "jjoojj", text: "어딘데??" },
                     { user: "joo_young0", text: "여기 별로임 김대영은 맨날 다 맛있대" },
@@ -250,16 +252,16 @@
                 ]
             },
             {
-                id: 8, author: "jjoojj", avatar: "photo1.jpg", img: "post8.jpg", caption: "증거사진이야. 제출은 공내관 아저씨한테.", likes: 5,
+                id: 8, author: "jjoojj", avatar: "photo1.jpg", img: "post8.jpg", caption: "증거사진이야. 제출은 공내관 아저씨한테 하겠지.", likes: 5,
                 comments: [
-                    { user: "sion._.9", text: "협박이야?" },
+                    { user: "wangsion", text: "협박이야?" },
                     { user: "jjoojj", text: "아직", isReply: true },
                     { user: "jjoojj", text: "나중에 써먹을거야", isReply: true },
-                    { user: "sion._.9", text: "ㅋㅋ귀엽네", isReply: true }
+                    { user: "wangsion", text: "ㅋㅋ귀엽네", isReply: true }
                 ]
             },
             {
-                id: 9, author: "riku_kk", avatar: "story2.jpg", img: "post9.jpg", caption: "후쿠이", likes: 11,
+                id: 9, author: "riku_kk", avatar: "story3.jpg", img: "post9.jpg", caption: "후쿠이", likes: 11,
                 comments: [
                     { user: "joo_young0", text: "자신감이 그게 다야?" },
                     { user: "daeyoung_kim", text: "시원하게 깠는데 왜ㅋㅋㅋ" },
@@ -269,17 +271,17 @@
                 ]
             },
             {
-                id: 10, author: "sion._.9", avatar: "photo2.jpg", img: "post10.jpg", caption: "이제 저도 공범입니다. 푸히히히✌️✌️✌️", likes: 1,
+                id: 10, author: "wangsion", avatar: "dm5.jpg", img: "post10.jpg", caption: "이제 저도 공범입니다. 푸히히✌️ 푸히히✌️✌️", likes: 1,
                 comments: [
                     { user: "jjoojj", text: "우와 태자 전하도 인스타그램을 하시는구나. 반가워요!! 앞으로 익명의 공간에서도 잘 지내보아요^^" },
-                    { user: "sion._.9", text: "뭐야 이게", isReply: true },
+                    { user: "wangsion", text: "뭐야 이게", isReply: true },
                     { user: "jjoojj", text: "공범 만들기ㅎㅎ", isReply: true },
                     { user: "jjoojj", text: "이거 지우면 안 된다 약속했어 분명히!" },
-                    { user: "sion._.9", text: "나랑 한 약속부터 지켜", isReply: true },
+                    { user: "wangsion", text: "나랑 한 약속부터 지켜", isReply: true },
                     { user: "jjoojj", text: "나는 그런 약속한 적 없거든?", isReply: true },
-                    { user: "sion._.9", text: "그럼 나도 없는거야 당장 계정 삭제해", isReply: true },
+                    { user: "wangsion", text: "그럼 나도 없는거야 당장 계정 삭제해", isReply: true },
                     { user: "jjoojj", text: "그런 법이 어딨어! 맨날 자기 좋을 대로만 약속하고 내가 부탁하는 건 하나도 안 들어주고 너 진짜 미워", isReply: true },
-                    { user: "sion._.9", text: "애도 아니고 정말", isReply: true },
+                    { user: "wangsion", text: "애도 아니고 정말", isReply: true },
                     { user: "jjoojj", text: "미워미워태자전하미워", isReply: true }
                 ]
             }
@@ -303,11 +305,9 @@
             else if (viewName === 'dm') document.getElementById('viewDM').classList.remove('hidden');
         }
 
-        // 하트 좋아요 클릭 (독자 참여)
         function toggleLike(postId) {
             const post = postsData.find(p => p.id === postId);
             if (!post) return;
-
             const icon = document.getElementById(`like-icon-${postId}`);
             const countEl = document.getElementById(`like-count-${postId}`);
 
@@ -323,17 +323,12 @@
             countEl.innerText = `좋아요 ${post.likes}개`;
         }
 
-        // 댓글 더보기 토글
         function toggleComments(postId) {
             const el = document.getElementById(`comments-list-${postId}`);
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
+            if (el.classList.contains('hidden')) el.classList.remove('hidden');
+            else el.classList.add('hidden');
         }
 
-        // 독자(lspy) 댓글 작성
         function addReaderComment(postId) {
             const input = document.getElementById(`comment-input-${postId}`);
             const val = input.value.trim();
@@ -341,16 +336,24 @@
 
             const post = postsData.find(p => p.id === postId);
             post.comments.push({ user: "lspy", text: val });
-
             input.value = '';
             renderHomePosts();
 
-            // 펼쳐진 상태 유지
             const el = document.getElementById(`comments-list-${postId}`);
             if (el) el.classList.remove('hidden');
         }
 
-        // 홈 피드 렌더링
+        function openStory(imgSrc, username) {
+            document.getElementById('storyModalImg').src = imgSrc;
+            document.getElementById('storyModalAvatar').src = imgSrc;
+            document.getElementById('storyModalUser').innerText = username;
+            document.getElementById('storyModal').classList.remove('hidden');
+        }
+
+        function closeStory() {
+            document.getElementById('storyModal').classList.add('hidden');
+        }
+
         function renderHomePosts() {
             const container = document.getElementById('homePostsContainer');
             container.innerHTML = postsData.map(post => `
@@ -369,6 +372,7 @@
                         <img src="${post.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/18181b/ffffff?text=${post.img}'">
                     </div>
 
+                    <!-- 요청하신 아이콘 배치 순서 적용 (하트, 댓글, 종이비행기 -> 북마크) -->
                     <div class="px-3 pt-2.5 pb-1 flex justify-between items-center text-lg">
                         <div class="flex space-x-4">
                             <i id="like-icon-${post.id}" onclick="toggleLike(${post.id})" class="${userLikesState[post.id] ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart hover:text-rose-500'} cursor-pointer"></i>
@@ -386,7 +390,6 @@
                             댓글 ${post.comments.length}개 모두 보기
                         </div>
 
-                        <!-- 댓글 펼치기 영역 -->
                         <div id="comments-list-${post.id}" class="hidden space-y-1 pt-1 border-t border-zinc-900 mt-2">
                             ${post.comments.map(c => `
                                 <div class="${c.isReply ? 'pl-3 border-l border-zinc-800' : ''} text-[11px]">
@@ -396,7 +399,6 @@
                             `).join('')}
                         </div>
 
-                        <!-- 독자 댓글 입력창 -->
                         <div class="flex items-center space-x-2 pt-2">
                             <input type="text" id="comment-input-${post.id}" placeholder="lspy(으)로 댓글 달기..." class="flex-1 bg-transparent text-[11px] text-white focus:outline-none placeholder-zinc-600">
                             <button onclick="addReaderComment(${post.id})" class="text-sky-500 font-bold text-[11px]">게시</button>
@@ -406,7 +408,6 @@
             `).join('');
         }
 
-        // 프로필 그리드 12개 렌더링
         function renderProfileGrid() {
             const container = document.getElementById('profileGridContainer');
             let html = '';
