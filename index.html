@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everytime - 한국예술대학교</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap');
+        body { 
+            background-color: #000000; 
+            color: #292929; 
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Hide Scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Lockscreen Swipe Animation */
+        .unlock-anim {
+            transform: translateY(-100%);
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Red Point Everytime Color */
+        .eta-red { color: #c62917; }
+        .bg-eta-red { background-color: #c62917; }
+    </style>
+</head>
+<body class="flex justify-center min-h-screen items-center bg-zinc-950 p-0 sm:p-4">
+
+    <!-- MOBILE PHONE FRAME -->
+    <div class="w-full max-w-[410px] h-[840px] bg-white rounded-[40px] border-[8px] border-zinc-800 shadow-2xl relative overflow-hidden flex flex-col">
+        
+        <!-- PHONE NOTCH / STATUS BAR -->
+        <div class="bg-black text-white px-6 pt-3 pb-2 flex justify-between items-center text-xs z-50 flex-shrink-0">
+            <span class="font-semibold" id="phoneTime">12:30</span>
+            <div class="w-20 h-4 bg-zinc-900 rounded-full mx-auto -mt-1 flex items-center justify-center">
+                <div class="w-3 h-3 bg-zinc-800 rounded-full"></div>
+            </div>
+            <div class="flex items-center space-x-1.5 text-[10px]">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full text-xs"></i>
+            </div>
+        </div>
+
+        <!-- 🔒 SCREEN 1: LOCKSCREEN (photo1.jpg) -->
+        <div id="lockScreen" onclick="unlockPhone()" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col justify-between p-8 text-white cursor-pointer select-none" style="background-image: url('photo1.jpg');">
+            <!-- Lockscreen Dark Overlay for Readability -->
+            <div class="absolute inset-0 bg-black/30"></div>
+            
+            <div class="relative z-10 text-center pt-8">
+                <i class="fa-solid fa-lock text-sm opacity-80 mb-1"></i>
+                <h1 class="text-6xl font-light tracking-tight" id="lockTime">12:30</h1>
+                <p class="text-sm font-medium opacity-90 mt-1">2월 24일 화요일</p>
+            </div>
+
+            <div class="relative z-10 text-center pb-4 animate-bounce">
+                <p class="text-xs font-medium opacity-80">위로 쓸어올려서 잠금 해제</p>
+                <div class="w-32 h-1 bg-white/80 rounded-full mx-auto mt-3"></div>
+            </div>
+        </div>
+
+        <!-- 📱 SCREEN 2: EVERYTIME APP INTERFACE -->
+        <div id="appScreen" class="flex-1 flex flex-col bg-[#f9f9f9] overflow-hidden">
+            
+            <!-- APP HEADER -->
+            <header class="bg-white border-b border-zinc-200 px-4 py-2.5 flex justify-between items-center z-10 flex-shrink-0">
+                <div class="flex items-center space-x-2">
+                    <span class="text-eta-red font-black text-lg tracking-tighter">everytime</span>
+                    <span class="text-xs text-zinc-400 border-l border-zinc-200 pl-2">한국예술대</span>
+                </div>
+                <div class="flex items-center space-x-3 text-zinc-600 text-sm">
+                    <i class="fa-solid fa-magnifying-glass cursor-pointer"></i>
+                    <i class="fa-regular fa-user cursor-pointer"></i>
+                </div>
+            </header>
+
+            <!-- MAIN VIEW CONTAINER -->
+            <main id="mainView" class="flex-1 overflow-y-auto no-scrollbar relative">
+                <!-- VIEW 1: TIMETABLE (시간표) -->
+                <div id="viewTimetable" class="p-3 space-y-3">
+                    <!-- TIMETABLE SWITCH TAB -->
+                    <div class="bg-white p-1 rounded-xl border border-zinc-200 flex text-xs font-bold text-zinc-500">
+                        <button onclick="switchTimetable('yeoju')" id="tabYeoju" class="flex-1 py-2 rounded-lg bg-eta-red text-white transition">
+                            이여주 (회화과)
+                        </button>
+                        <button onclick="switchTimetable('sion')" id="tabSion" class="flex-1 py-2 rounded-lg hover:text-zinc-800 transition">
+                            오시온 (정치외교)
+                        </button>
+                    </div>
+
+                    <!-- TIMETABLE GRID CARD -->
+                    <div class="bg-white rounded-xl border border-zinc-200 p-3 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-zinc-700" id="timetableOwnerTitle">2026년 1학기 시간표</span>
+                            <span class="text-[10px] text-zinc-400 font-medium">18학점 수강 중</span>
+                        </div>
+
+                        <!-- TIMETABLE GRID TABLE -->
+                        <div class="border border-zinc-100 rounded-lg overflow-hidden text-[10px]">
+                            <div class="grid grid-cols-6 bg-zinc-50 border-b border-zinc-100 text-center py-1 font-semibold text-zinc-400">
+                                <div>교시</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div>
+                            </div>
+                            
+                            <!-- DYNAMIC GRID CONTENT VIA JS -->
+                            <div id="timetableGrid" class="divide-y divide-zinc-100 text-center">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TODAY'S CLASS BRIEF -->
+                    <div class="bg-white rounded-xl border border-zinc-200 p-3 shadow-sm">
+                        <h4 class="text-xs font-bold text-zinc-800 mb-2">오늘의 수업 메모</h4>
+                        <p class="text-xs text-zinc-600 leading-relaxed bg-zinc-50 p-2.5 rounded-lg border border-zinc-100" id="timetableMemo">
+                            <!-- Memo Rendered via JS -->
+                        </p>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: BOARD (자유게시판) -->
+                <div id="viewBoard" class="hidden divide-y divide-zinc-200 bg-white min-h-full">
+                    <div class="p-3 bg-zinc-50 border-b border-zinc-200 flex justify-between items-center">
+                        <span class="text-xs font-bold text-zinc-800">🔥 자유게시판</span>
+                        <span class="text-[10px] text-zinc-400">실시간 인기 순</span>
+                    </div>
+
+                    <!-- POST 1 (가온관 학식 목격담) -->
+                    <article class="p-3.5 hover:bg-zinc-50 transition cursor-pointer">
+                        <h3 class="text-xs font-bold text-zinc-800 line-clamp-1 mb-1">가온관 오늘 왜 터짐? 신메뉴 나왔냐? 1층까지 줄 서 있는데 무슨 일임?</h3>
+                        <p class="text-xs text-zinc-500 line-clamp-2 mb-2 leading-snug">점심 먹으러 내려왔다가 사람 너무 많아서 식겁함 ㅋㅋㅋ 경호원 같은 아저씨들도 서 있고 뭐냐 대체</p>
+                        <div class="flex items-center justify-between text-[10px] text-zinc-400">
+                            <span>방금 전 · 익명</span>
+                            <div class="flex space-x-2 text-eta-red font-medium">
+                                <span><i class="fa-regular fa-thumbs-up mr-0.5"></i>48</span>
+                                <span><i class="fa-regular fa-comment mr-0.5"></i>8</span>
+                            </div>
+                        </div>
+
+                        <!-- COMMENTS SECTION -->
+                        <div class="mt-2.5 pt-2 border-t border-zinc-100 space-y-1.5 text-[11px] bg-zinc-50 p-2 rounded-lg">
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 1</span> 엥 우리 가온 그 정도 아닙니다~</div>
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 2</span> 황태자 부부 떴다는데?</div>
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 3</span> ㄹㅇ? 첫날부터 학식을 먹는다고?</div>
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 4</span> 근데 둘이 따로 먹음 각자 과 애들이랑 먹나봄!!</div>
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 5</span> ㅁㅊ 싸웠나? 신혼인데 왜 따로 먹어?</div>
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 6</span> 아니 딱 봐도 걍 각자 친구들이랑 먹는 거 같은데? 오히려 쿨해보이고 좋음</div>
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 7</span> 오히려 같이 먹어야 할 이유가 뭔데ㅋㅋㅋㅋ</div>
+                            <div class="text-zinc-600"><span class="font-bold text-zinc-800">익명 8</span> 솔직히 학교까지 와서 저러는 건 좀 오바 아니냐? 밥 먹는데 경호원들 서 있어서 체하겠다 시발</div>
+                        </div>
+                    </article>
+
+                    <!-- POST 2 (평범한 일상 글) -->
+                    <article class="p-3.5 hover:bg-zinc-50 transition cursor-pointer">
+                        <h3 class="text-xs font-bold text-zinc-800 line-clamp-1 mb-1">인문관에서 자연관까지 걸어가는데 중간에 등산로 있는 거 실화냐</h3>
+                        <p class="text-xs text-zinc-500 line-clamp-2 mb-2 leading-snug">첫 수업 듣고 바로 다음 수업 가다가 오열함... 땀 비 오듯 오는데 내일부턴 무조건 킥보드 탄다</p>
+                        <div class="flex items-center justify-between text-[10px] text-zinc-400">
+                            <span>10분 전 · 익명</span>
+                            <div class="flex space-x-2 text-eta-red font-medium">
+                                <span><i class="fa-regular fa-thumbs-up mr-0.5"></i>12</span>
+                                <span><i class="fa-regular fa-comment mr-0.5"></i>5</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- POST 3 (황태자 목격담) -->
+                    <article class="p-3.5 hover:bg-zinc-50 transition cursor-pointer">
+                        <h3 class="text-xs font-bold text-zinc-800 line-clamp-1 mb-1">정외과 강의실 지나가다 오시온 봄 ㄷㄷ 실물 미침</h3>
+                        <p class="text-xs text-zinc-500 line-clamp-2 mb-2 leading-snug">맨 뒷자리에 앉아서 전공서적 보고 있는데 그냥 혼자 다른 세계 사람 같음 기운이 너무 살벌해서 말도 못 걸겠더라</p>
+                        <div class="flex items-center justify-between text-[10px] text-zinc-400">
+                            <span>25분 전 · 익명</span>
+                            <div class="flex space-x-2 text-eta-red font-medium">
+                                <span><i class="fa-regular fa-thumbs-up mr-0.5"></i>34</span>
+                                <span><i class="fa-regular fa-comment mr-0.5"></i>11</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- POST 4 (수강신청 징징) -->
+                    <article class="p-3.5 hover:bg-zinc-50 transition cursor-pointer">
+                        <h3 class="text-xs font-bold text-zinc-800 line-clamp-1 mb-1">한국미술사 교양 빌어보신 분 계신가요 제발 ㅠㅠ</h3>
+                        <p class="text-xs text-zinc-500 line-clamp-2 mb-2 leading-snug">교수님한테 메일 보냈는데 추가 증원 절대 안 된다고 단칼에 거절당함... 졸업할 수 있냐 나</p>
+                        <div class="flex items-center justify-between text-[10px] text-zinc-400">
+                            <span>40분 전 · 익명</span>
+                            <div class="flex space-x-2 text-eta-red font-medium">
+                                <span><i class="fa-regular fa-thumbs-up mr-0.5"></i>3</span>
+                                <span><i class="fa-regular fa-comment mr-0.5"></i>2</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- VIEW 3: CHAT / MESSAGE (비밀 쪽지함) -->
+                <div id="viewChat" class="hidden p-3 space-y-3 bg-[#f9f9f9] min-h-full">
+                    <div class="bg-white p-3 rounded-xl border border-zinc-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-2 pb-2 border-b border-zinc-100">
+                            <span class="text-xs font-bold text-zinc-800"><i class="fa-regular fa-envelope mr-1 text-eta-red"></i>비밀 쪽지함</span>
+                            <span class="text-[10px] text-zinc-400">오시온 전하</span>
+                        </div>
+                        
+                        <!-- CHAT HISTORY -->
+                        <div class="space-y-2 text-xs">
+                            <div class="bg-zinc-100 p-2 rounded-lg max-w-[80%] text-zinc-700">
+                                <p class="text-[10px] font-bold text-zinc-400 mb-0.5">오시온 · 12:10</p>
+                                수업 끝났어? 학식 식당 앞으로 나와.
+                            </div>
+                            <div class="bg-eta-red text-white p-2 rounded-lg max-w-[80%] ml-auto">
+                                <p class="text-[10px] font-medium text-red-200 mb-0.5 text-right">나 · 12:12</p>
+                                안 가 사람 너무 많아. 경호원들 때문에 다 쳐다보잖아 ㅡㅡ
+                            </div>
+                            <div class="bg-zinc-100 p-2 rounded-lg max-w-[80%] text-zinc-700">
+                                <p class="text-[10px] font-bold text-zinc-400 mb-0.5">오시온 · 12:13</p>
+                                그럼 어디서 먹을 건데? 빵 먹고 떼우지 말고 기다려. 데리러 갈 테니까.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- APP BOTTOM NAVIGATION BAR -->
+            <nav class="bg-white border-t border-zinc-200 py-2 px-6 flex justify-between items-center text-zinc-400 text-center text-[10px] font-medium flex-shrink-0 z-10">
+                <button onclick="switchTab('timetable')" id="navTimetable" class="flex flex-col items-center space-y-1 text-eta-red">
+                    <i class="fa-regular fa-calendar-days text-base"></i>
+                    <span>시간표</span>
+                </button>
+                <button onclick="switchTab('board')" id="navBoard" class="flex flex-col items-center space-y-1 hover:text-zinc-600 transition">
+                    <i class="fa-regular fa-list-alt text-base"></i>
+                    <span>게시판</span>
+                </button>
+                <button onclick="switchTab('chat')" id="navChat" class="flex flex-col items-center space-y-1 hover:text-zinc-600 transition relative">
+                    <i class="fa-regular fa-paper-plane text-base"></i>
+                    <span>쪽지함</span>
+                    <span class="absolute top-0 right-1 w-2 h-2 bg-eta-red rounded-full"></span>
+                </button>
+            </nav>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Timetable Data
+        const timetableData = {
+            yeoju: {
+                title: "이여주 (회화과 26학번) 시간표",
+                memo: "✏️ <b>오늘 메모:</b> 기초드로잉 과제 제출일! 실기실 302호로 석고상 스케치북 가져가기. 학식 먹고 시온이랑 도서관 카페에서 만나기로 함.",
+                grid: [
+                    { time: "1교시", mon: "대학영어", tue: "기초드로잉", wed: "-", thu: "색채학 이해", fri: "-" },
+                    { time: "2교시", mon: "대학영어", tue: "기초드로잉", wed: "한국미술사", thu: "색채학 이해", fri: "-" },
+                    { time: "3교시", mon: "-", tue: "기초드로잉", wed: "한국미술사", thu: "-", fri: "현대미술비평" },
+                    { time: "4교시", mon: "공방실기", tue: "-", wed: "-", thu: "공방실기", fri: "현대미술비평" }
+                ]
+            },
+            sion: {
+                title: "오시온 (정치외교학과 26학번) 시간표",
+                memo: "👑 <b>오늘 메모:</b> 3교시 비교정치체제 발표. 오후 4시 황실 공무 접견 일정 있어서 수업 끝나고 바로 입궁해야 함.",
+                grid: [
+                    { time: "1교시", mon: "정치학개론", tue: "-", wed: "한국헌법이해", thu: "정치학개론", fri: "-" },
+                    { time: "2교시", mon: "정치학개론", tue: "스피치토론", wed: "한국헌법이해", thu: "-", fri: "국제관계론" },
+                    { time: "3교시", mon: "-", tue: "스피치토론", wed: "비교정치체제", thu: "비교정치체제", fri: "국제관계론" },
+                    { time: "4교시", mon: "-", tue: "-", wed: "비교정치체제", thu: "-", fri: "-" }
+                ]
+            }
+        };
+
+        let currentOwner = 'yeoju';
+
+        function unlockPhone() {
+            const lock = document.getElementById('lockScreen');
+            lock.classList.add('unlock-anim');
+            setTimeout(() => { lock.style.display = 'none'; }, 450);
+        }
+
+        function switchTimetable(owner) {
+            currentOwner = owner;
+            const btnYeoju = document.getElementById('tabYeoju');
+            const btnSion = document.getElementById('tabSion');
+
+            if (owner === 'yeoju') {
+                btnYeoju.className = "flex-1 py-2 rounded-lg bg-eta-red text-white transition";
+                btnSion.className = "flex-1 py-2 rounded-lg text-zinc-500 hover:text-zinc-800 transition";
+            } else {
+                btnSion.className = "flex-1 py-2 rounded-lg bg-eta-red text-white transition";
+                btnYeoju.className = "flex-1 py-2 rounded-lg text-zinc-500 hover:text-zinc-800 transition";
+            }
+
+            renderTimetableUI();
+        }
+
+        function renderTimetableUI() {
+            const data = timetableData[currentOwner];
+            document.getElementById('timetableOwnerTitle').innerText = data.title;
+            document.getElementById('timetableMemo').innerHTML = data.memo;
+
+            const gridContainer = document.getElementById('timetableGrid');
+            gridContainer.innerHTML = data.grid.map(row => `
+                <div class="grid grid-cols-6 py-2.5 items-center">
+                    <div class="text-zinc-400 font-medium">${row.time}</div>
+                    <div class="${row.mon !== '-' ? 'bg-red-50 text-eta-red font-bold rounded p-1 mx-0.5' : 'text-zinc-300'}">${row.mon}</div>
+                    <div class="${row.tue !== '-' ? 'bg-blue-50 text-blue-600 font-bold rounded p-1 mx-0.5' : 'text-zinc-300'}">${row.tue}</div>
+                    <div class="${row.wed !== '-' ? 'bg-amber-50 text-amber-600 font-bold rounded p-1 mx-0.5' : 'text-zinc-300'}">${row.wed}</div>
+                    <div class="${row.thu !== '-' ? 'bg-emerald-50 text-emerald-600 font-bold rounded p-1 mx-0.5' : 'text-zinc-300'}">${row.thu}</div>
+                    <div class="${row.fri !== '-' ? 'bg-purple-50 text-purple-600 font-bold rounded p-1 mx-0.5' : 'text-zinc-300'}">${row.fri}</div>
+                </div>
+            `).join('');
+        }
+
+        function switchTab(tab) {
+            const vTimetable = document.getElementById('viewTimetable');
+            const vBoard = document.getElementById('viewBoard');
+            const vChat = document.getElementById('viewChat');
+
+            const nTimetable = document.getElementById('navTimetable');
+            const nBoard = document.getElementById('navBoard');
+            const nChat = document.getElementById('navChat');
+
+            vTimetable.classList.add('hidden');
+            vBoard.classList.add('hidden');
+            vChat.classList.add('hidden');
+
+            nTimetable.className = "flex flex-col items-center space-y-1 hover:text-zinc-600 transition";
+            nBoard.className = "flex flex-col items-center space-y-1 hover:text-zinc-600 transition";
+            nChat.className = "flex flex-col items-center space-y-1 hover:text-zinc-600 transition relative";
+
+            if (tab === 'timetable') {
+                vTimetable.classList.remove('hidden');
+                nTimetable.className = "flex flex-col items-center space-y-1 text-eta-red";
+            } else if (tab === 'board') {
+                vBoard.classList.remove('hidden');
+                nBoard.className = "flex flex-col items-center space-y-1 text-eta-red";
+            } else if (tab === 'chat') {
+                vChat.classList.remove('hidden');
+                nChat.className = "flex flex-col items-center space-y-1 text-eta-red relative";
+            }
+        }
+
+        // Initialize Timetable
+        renderTimetableUI();
+    </script>
+</body>
+</html>
